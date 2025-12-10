@@ -830,7 +830,12 @@ const show = (city) => {
       n = citems.length - 1;
     }
     divcomment.textContent = item.満足度理由 + " （おすすめ度 " + item.おすすめ度 + "、" + item.回答場所 + "にて、" + item.居住都道府県 + "に住む " + item.年代 + " " + item.性別 + "）";
-    img_comment.src = "img/" + getImageName(item.性別, item.年代);
+    const getEmo = (nps) => {
+      if (nps >= 9) return "happy";
+      if (nps <= 6) return "sad";
+      return "normal";
+    };
+    img_comment.src = getImageName(item.性別, item.年代, getEmo(item.おすすめ度));
   };
   divcomment.timer = setInterval(showComment, 3000);
   showComment();
