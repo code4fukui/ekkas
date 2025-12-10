@@ -700,7 +700,8 @@ selpref.onchange();
 //const city = "敦賀市";
 //const city = "七尾市";
 //const city = "福井市";
-const show = (city) => {
+const show = (pref, city) => {
+  location.hash = pref + city;
   const set = (name, val) => {
     document.body.querySelectorAll("." + name).forEach(i => i.textContent = val);
   };
@@ -843,11 +844,21 @@ const show = (city) => {
 
 btn_start.onclick = () => {
   pre.style.display = "none";
-  show(selcity.value);
+  show(selpref.value, selcity.value);
   to_back.onclick = () => {
     pre.style.display = "block";
   };
 };
+
+const hash = decodeURIComponent(location.hash.substring(1));
+for (const pref of prefs) {
+  if (hash.startsWith(pref)) {
+    pre.style.display = "none";
+    show(pref, hash.substring(pref.length));
+    break;
+  }
+}
+
 
 </script>
 
