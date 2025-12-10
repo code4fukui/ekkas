@@ -836,7 +836,11 @@ const show = (pref, city) => {
       if (nps <= 6) return "sad";
       return "normal";
     };
-    img_comment.src = getImageName(item.性別, item.年代, getEmo(item.おすすめ度));
+    const getYear = (item) => {
+      return parseInt(item.アンケート回答日.substring(0, 4));
+    };
+    const year = getYear(item);
+    img_comment.src = getImageName(item.性別, item.年代, getEmo(item.おすすめ度), year);
   };
   divcomment.timer = setInterval(showComment, 3000);
   showComment();
